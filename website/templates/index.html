@@ -14,5 +14,23 @@
   <script type="text/javascript" src="{% static 'website/js/vendor/ember/ember.js' %}"></script>
   <script type="text/javascript" src="{% static 'website/js/app.js' %}"></script>
 
+  <script>
+    function compile(template) {
+      var templateName = template.split('/templates/').reverse()[0].replace('.handlebars', '');
+      $.ajax({
+        url: template,
+        cache: false,
+        async: false,
+        success: function (source) {
+          var input = Ember.Handlebars.precompile(source.toString());
+          Ember.TEMPLATES[templateName] = Ember.Handlebars.template(input);
+        }
+      });
+    }
+    compile('http://localhost:8000/static/website/js/templates/application.handlebars');
+    compile('http://localhost:8000/static/website/js/templates/sessions.handlebars');
+    compile('http://localhost:8000/static/website/js/templates/session.handlebars');
+  </script>
+
 </body>
 </html>
