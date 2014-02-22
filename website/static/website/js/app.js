@@ -6,14 +6,16 @@ App.Router.map(function() {
 
 App.SessionsRoute = Ember.Route.extend({
     model: function() {
-        var sessions = [];
-        $.getJSON("/api/sessions/", function(response){
-            response.forEach(function(session) {
-                sessions.pushObject(session);
-            });
-        });
-        return sessions;
+        return this.store.find('session');
     }
+});
+
+App.Session = DS.Model.extend({
+    name: DS.attr('string')
+});
+
+App.ApplicationAdapter = DS.DjangoRESTAdapter.extend({
+    namespace: 'api'
 });
 
 App.SessionsController = Ember.ArrayController.extend({
