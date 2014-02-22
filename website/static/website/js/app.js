@@ -6,9 +6,13 @@ App.Router.map(function() {
 
 App.SessionsRoute = Ember.Route.extend({
     model: function() {
-        var first = {name: 'first'};
-        var last = {name: 'last'};
-        return [first, last];
+        var sessions = [];
+        $.getJSON("/api/sessions/", function(response){
+            response.forEach(function(session) {
+                sessions.pushObject(session);
+            });
+        });
+        return sessions;
     }
 });
 
