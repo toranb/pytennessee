@@ -1,0 +1,13 @@
+{{#each session in controller.content}}
+<h2>{{session.name}}</h2>
+{{/each}}
+
+<button {{action "show"}}>Show Warning</button>
+
+{{#if warning}}
+<h3>Show The Warning</h3>
+{{/if}}
+
+<!-- now to show how you can interop with jQuery -->
+
+<input class="phone" type="text">
